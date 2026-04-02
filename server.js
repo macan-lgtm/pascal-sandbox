@@ -5,7 +5,7 @@ const path = require("path");
 
 const app = express();
 app.use(express.text({ limit: "10kb" }));
-app.use(express.static("public"));
+app.use(express.static(__dirname));
 
 const WORK_DIR = path.join(__dirname, "tmp");
 if (!fs.existsSync(WORK_DIR)) fs.mkdirSync(WORK_DIR);
