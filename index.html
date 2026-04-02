@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Pascal Sandbox</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #0f2027, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+}
+
+.container {
+    width: 900px;
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(25px);
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 40px rgba(0,255,255,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #00ffff;
+}
+
+textarea {
+    width: 100%;
+    height: 220px;
+    background: #000;
+    color: #00ffff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    font-family: monospace;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(45deg, cyan, purple);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 20px cyan;
+}
+
+pre {
+    margin-top: 15px;
+    background: black;
+    color: #00ff99;
+    padding: 10px;
+    border-radius: 10px;
+    height: 180px;
+    overflow: auto;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Pascal Sandbox</h1>
+
+<textarea id="code">
+program Hello;
+begin
+  writeln('Hello from Fly.io!');
+end.
+</textarea>
+
+<button onclick="run()">Run</button>
+
+<pre id="output"></pre>
+</div>
+
+<script>
+async function run() {
+    const code = document.getElementById("code").value;
+
+    const res = await fetch("/run", {
+        method: "POST",
+        body: code
+    });
+
+    const text = await res.text();
+    document.getElementById("output").textContent = text;
+}
+</script>
+</body>
+</html>
